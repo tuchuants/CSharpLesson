@@ -1,0 +1,54 @@
+﻿<Page x:Class="Lession1.NumericOperatorTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Lession1"
+      mc:Ignorable="d"
+      Title="NumericOperatorTest" Height="450" Width="800" Loaded="_onLoaded">
+  <Page.Resources>
+    <local:Holder x:Key="Holder" />
+    <Style TargetType="Button">
+      <Setter Property="FontSize" Value="20" />
+      <Setter Property="Padding" Value="0, 16, 0, 16" />
+    </Style>
+  </Page.Resources>
+  <Page.DataContext>
+    <Binding Source="{StaticResource Holder}" />
+  </Page.DataContext>
+  <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <TextBlock Text="{Binding Path=QuestionContext.CurrentText, Mode=OneWay}" Margin="0, 0, 32, 32" FontSize="24" />
+    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=QuestionContext.CurrentAttempt, Mode=TwoWay}" Width="200" />
+    <Button Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Click="_onAssert" Margin="0, 16,0,0"
+            Visibility="{Binding Path=ButtonContext.AssertionButtonVisibility, Mode=OneWay}">
+      Assert
+    </Button>
+    <Button Grid.Row="1" Grid.ColumnSpan="2" Grid.Column="0" Click="_onNext" Margin="0, 16,0,0"
+            Visibility="{Binding Path=ButtonContext.NextButtonVisibility, Mode=OneWay}">
+      Next
+    </Button>
+    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0"
+               Text="{Binding Path=QuestionStateContext.StateText, Mode=OneWay}" />
+    <TextBlock Grid.Row="3" Grid.Column="0" Text="{Binding Path=TotalContext.CurrentCountText}" />
+    <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Path=TotalContext.CurrentScoreText}" />
+    <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0">
+      <TextBlock.Text>
+        <MultiBinding StringFormat="{}{0}s left.">
+          <Binding Path="TimerContextHolder.CurrentTime" />
+          <Binding Path="TimerContextHolder.TotalTime"></Binding>
+        </MultiBinding>
+      </TextBlock.Text>
+    </TextBlock>
+  </Grid>
+</Page>
